@@ -1,0 +1,44 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # 或你主要的分支
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Public Repository
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          # 您需要在私有倉庫的 Settings -> Secrets and variables -> Actions 中新增一個 Secret
+          # Name: API_TOKEN_GITHUB
+          # Value: 您的 GitHub Personal Access Token (需有 public_repo 權限)
+          personal_token: ${{ secrets.GH_PAT }}
+          
+          # 建置輸出的資料夾 (Vite 預設是 dist)
+          publish_dir: ./dist
+          
+          # 公開倉庫的名稱 (例如: username/username.github.io 或 username/public-repo)
+          external_repository: HobertLiao/picklepickle_pub
+          
+          # 公開倉庫要部署的分支 (通常是 main 或 gh-pages)
+          publish_branch: main
+          
+          # 確保 CNAME 檔案存在 (如果您有自訂網域)
+          # cname: example.com

@@ -1,0 +1,5 @@
+{
+  "name": "Pickleball Scorekeeper Arcade",
+  "description": "A pickleball scoring application for referees with a cute, arcade-style interface. Users can select singles or doubles, name players, set the initial server, and track scores until a winner is declared.",
+  "requestFramePermissions": []
+}
